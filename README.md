@@ -1,54 +1,151 @@
-# Welcome to your Lovable project
+# My Portfolio
 
-## Project info
+[![Deploy to GitHub Pages](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml)
 
-**URL**: https://lovable.dev/projects/951abbde-2b87-48bf-9272-3883aa0ed809
+A modern, responsive portfolio website built with React, TypeScript, and Vite. This project showcases my work, skills, and provides a way for visitors to get in touch with me. The frontend is deployed on GitHub Pages and the backend is deployed on Render.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- 🚀 Blazing fast performance with Vite
+- 🎨 Modern UI with responsive design
+- ✉️ Contact form with email functionality
+- 🔒 Secure backend with rate limiting and security headers
+- 📱 Mobile-friendly layout
+- 🌐 SEO optimized
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/951abbde-2b87-48bf-9272-3883aa0ed809) and start prompting.
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: CSS Modules, CSS Variables
+- **Backend**: Node.js, Express
+- **Email**: Resend
+- **Build Tools**: Vite, TypeScript
+- **Linting/Formatting**: ESLint, Prettier
+- **Containerization**: Docker
 
-Changes made via Lovable will be committed automatically to this repo.
+## Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ and npm 8+
+- Git
+- (Optional) Docker and Docker Compose
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Clone the repository
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone https://github.com/yourusername/your-portfolio.git
+cd your-portfolio
 ```
 
-**Edit a file directly in GitHub**
+### Install dependencies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm install
+```
 
-**Use GitHub Codespaces**
+### Environment Setup
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Create a `.env` file in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+2. Update the environment variables in `.env` with your configuration.
+
+### Development
+
+Start the development server:
+
+```bash
+# Start both frontend and backend
+dev:all
+
+# Or start them separately
+npm run dev      # Frontend
+dev:server       # Backend
+```
+
+The application will be available at `http://localhost:8080`.
+
+## Building for Production
+
+### Option 1: Using the build script (Recommended)
+
+```bash
+node build.js
+```
+
+The production build will be available in the `dist` directory.
+
+### Option 2: Manual Build
+
+```bash
+# Install production dependencies
+npm ci --only=production
+
+# Build the frontend
+npm run build
+
+# Build the server
+npm run build:server
+```
+
+## Deployment
+
+Detailed deployment instructions are available in [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### Quick Deployment with Docker
+
+1. Build the Docker image:
+   ```bash
+   docker build -t my-portfolio .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 3001:3001 --env-file .env.production my-portfolio
+   ```
+
+## Project Structure
+
+```
+.
+├── src/                    # Frontend source code
+│   ├── components/         # React components
+│   ├── pages/              # Page components
+│   ├── styles/             # Global styles
+│   └── utils/              # Utility functions
+├── server/                 # Backend server code
+│   ├── index.ts            # Server entry point
+│   └── routes/             # API routes
+├── public/                 # Static files
+├── dist/                   # Production build output
+├── .env.example            # Example environment variables
+├── .env.production         # Production environment variables
+├── package.json            # Project configuration
+├── tsconfig.json           # TypeScript configuration
+├── vite.config.ts          # Vite configuration
+└── README.md               # This file
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+- Email: your.email@example.com
+- Website: https://yourwebsite.com
+- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
+- GitHub: [@yourusername](https://github.com/yourusername)
 
 ## What technologies are used for this project?
 

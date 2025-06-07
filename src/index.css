@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom cursor styles */
+* {
+  cursor: none !important;
+}
+
+/* Hide default cursor on interactive elements */
+a, button, input, textarea, [role="button"], [role="link"] {
+  cursor: none !important;
+}
+
 /* Futuristic color scheme and design system */
 
 @layer base {

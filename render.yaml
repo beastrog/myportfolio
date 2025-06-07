@@ -1,0 +1,32 @@
+# render.yaml
+
+# Build and start commands for the backend service
+services:
+  - type: web
+    name: myportfolio-backend
+    env: node
+    # Build command
+    buildCommand: cd backend && npm install
+    # Start command
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Add other environment variables as needed
+      - key: EMAIL_SERVICE
+        fromGroup:
+          env: EMAIL_SERVICE
+      - key: EMAIL_USER
+        fromGroup:
+          env: EMAIL_USER
+      - key: EMAIL_PASS
+        fromGroup:
+          env: EMAIL_PASS
+      - key: EMAIL_TO
+        value: deyaniruddha_goat@yahoo.com
+    # Health check path
+    healthCheckPath: /api/health
+    # Auto-deploy from Git
+    autoDeploy: true

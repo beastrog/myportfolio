@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion';
+import { Github, ExternalLink, Code as CodeIcon, Zap, Award } from 'lucide-react';
+
 const Projects = () => {
   const projects = [
     {
@@ -6,7 +9,8 @@ const Projects = () => {
       tech: ["Python", "TensorFlow", "Keras", "Flask", "MongoDB", "OpenCV"],
       status: "Present",
       highlight: "SBI Ideathon Finalist",
-      gradient: "from-cyan-400 to-blue-500"
+      gradient: "from-cyan-400 to-blue-500",
+      icon: <CodeIcon className="w-5 h-5" />
     },
     {
       title: "HungryAF - Food Delivery App",
@@ -14,7 +18,8 @@ const Projects = () => {
       tech: ["Next.js", "MongoDB", "Clerk", "Supabase", "Razorpay"],
       status: "Live",
       highlight: "College-wide deployment",
-      gradient: "from-purple-400 to-pink-500"
+      gradient: "from-purple-400 to-pink-500",
+      icon: <div className="w-5 h-5">🍔</div>
     },
     {
       title: "QuantStock - ML Trading Predictor",
@@ -22,7 +27,8 @@ const Projects = () => {
       tech: ["Python", "XGBoost", "Backtrader", "Flask", "PostgreSQL"],
       status: "Active",
       highlight: "Live trading signals",
-      gradient: "from-green-400 to-cyan-500"
+      gradient: "from-green-400 to-cyan-500",
+      icon: <div className="w-5 h-5">📈</div>
     },
     {
       title: "Face Recognition Attendance",
@@ -30,41 +36,82 @@ const Projects = () => {
       tech: ["Python", "OpenCV", "Firebase", "React Native"],
       status: "Complete",
       highlight: "Production ready",
-      gradient: "from-orange-400 to-red-500"
+      gradient: "from-orange-400 to-red-500",
+      icon: <div className="w-5 h-5">👁️</div>
     }
   ];
 
-  return (
-    <section id="projects" className="py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-          Featured Projects
-        </h2>
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
-        <div className="grid md:grid-cols-2 gap-8">
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  return (
+    <section id="projects" className="py-16 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/5">
+      <div className="max-w-6xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-foreground/70 max-w-2xl mx-auto">
+            A collection of my recent work and contributions to the tech community
+          </p>
+        </motion.div>
+
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-2 gap-6 lg:gap-8"
+        >
           {projects.map((project, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group p-6 rounded-xl bg-gradient-to-br from-cyan-500/5 to-purple-500/5 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-500 cursor-hover hover:scale-105 transform"
+              variants={item}
+              className="group relative p-6 rounded-2xl bg-gradient-to-br from-background to-muted/30 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 overflow-hidden"
             >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className={`text-xl font-bold bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300`}>
-                  {project.title}
-                </h3>
-                <span className="px-3 py-1 text-xs bg-cyan-500/20 text-cyan-400 rounded-full">
+              <div className="absolute top-0 right-0 p-2">
+                <span className={`px-3 py-1 text-xs font-medium rounded-full bg-${project.gradient.split(' ')[1].split('-')[1]}-500/10 text-${project.gradient.split(' ')[1].split('-')[1]}-400`}>
                   {project.status}
                 </span>
               </div>
 
+              <div className="flex items-start gap-3 mb-4">
+                <div className={`p-2 rounded-lg bg-gradient-to-br ${project.gradient} text-background`}>
+                  {project.icon}
+                </div>
+                <h3 className={`text-xl font-bold bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
+                  {project.title}
+                </h3>
+              </div>
+
               {project.highlight && (
-                <div className="mb-3">
-                  <span className="px-3 py-1 text-xs bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 rounded-full">
-                    🏆 {project.highlight}
+                <div className="mb-4">
+                  <span className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-purple-500/10 text-purple-300">
+                    <Award className="w-3.5 h-3.5 mr-1.5" />
+                    {project.highlight}
                   </span>
                 </div>
               )}
 
-              <p className="text-foreground/70 mb-6 leading-relaxed">
+              <p className="text-foreground/80 mb-6 leading-relaxed">
                 {project.description}
               </p>
 
@@ -75,7 +122,7 @@ const Projects = () => {
                     {project.tech.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-2 py-1 text-xs bg-background/50 border border-cyan-500/20 rounded text-foreground/80 hover:border-cyan-500/40 transition-colors duration-300"
+                        className="px-2.5 py-1 text-xs font-medium bg-background/50 border border-cyan-500/10 rounded-full text-foreground/80 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
                       >
                         {tech}
                       </span>
@@ -83,32 +130,52 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex space-x-4 pt-4">
-                  <button className="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-400 rounded-lg hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 text-sm font-medium cursor-hover">
-                    View Details
-                  </button>
-                  <button className="flex-1 py-2 px-4 border border-cyan-500/30 text-cyan-400 rounded-lg hover:bg-cyan-500/10 transition-all duration-300 text-sm font-medium cursor-hover">
-                    Live Demo
-                  </button>
+                <div className="flex gap-3 pt-2">
+                  <motion.a
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-cyan-400 rounded-lg hover:from-cyan-500/20 hover:to-purple-500/20 transition-all duration-300 text-sm font-medium"
+                  >
+                    <CodeIcon className="w-4 h-4" />
+                    <span>View Code</span>
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 border border-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/10 transition-all duration-300 text-sm font-medium"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Live Demo</span>
+                  </motion.a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mt-16 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-16 text-center"
+        >
           <p className="text-foreground/60 mb-6">
             More projects available on GitHub (repositories will be made public soon)
           </p>
-          <a
+          <motion.a
             href="https://github.com/beastrog"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full font-semibold hover:scale-105 transition-all duration-300 cursor-hover shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            View All Projects →
-          </a>
-        </div>
+            <Github className="w-5 h-5" />
+            <span>View All Projects</span>
+            <span className="ml-1">→</span>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
