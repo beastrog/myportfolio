@@ -1,4 +1,6 @@
 
+import { Github, Linkedin, Globe, Trophy, Mail } from 'lucide-react';
+
 const Footer = () => {
   return (
     <footer className="py-12 px-6 border-t border-cyan-500/20">
@@ -11,28 +13,49 @@ const Footer = () => {
             <p className="text-foreground/60 mt-2">Software Engineer & AI Enthusiast</p>
           </div>
 
-          <div className="flex justify-center space-x-8 mb-8">
+          <div className="flex justify-center space-x-6 mb-8">
             <a
               href="https://linkedin.com/in/aniruddha-dey-887b26312"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
             >
-              LinkedIn
+              <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>LinkedIn</span>
             </a>
             <a
               href="https://github.com/beastrog"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
             >
-              GitHub
+              <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://aniruddhadey.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
+            >
+              <Globe className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>Website</span>
+            </a>
+            <a
+              href="https://kaggle.com/aniruddhadey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
+            >
+              <Trophy className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>Kaggle</span>
             </a>
             <a
               href="mailto:deyaniruddha_goat@yahoo.com"
-              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
             >
-              Email
+              <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>Email</span>
             </a>
           </div>
 
