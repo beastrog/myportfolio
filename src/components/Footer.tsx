@@ -1,0 +1,56 @@
+
+const Footer = () => {
+  return (
+    <footer className="py-12 px-6 border-t border-cyan-500/20">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              ANIRUDDHA DEY
+            </h3>
+            <p className="text-foreground/60 mt-2">Software Engineer & AI Enthusiast</p>
+          </div>
+
+          <div className="flex justify-center space-x-8 mb-8">
+            <a
+              href="https://linkedin.com/in/aniruddha-dey-887b26312"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/beastrog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+            >
+              GitHub
+            </a>
+            <a
+              href="mailto:deyaniruddha_goat@yahoo.com"
+              className="text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover"
+            >
+              Email
+            </a>
+          </div>
+
+          <div className="flex justify-center space-x-6 text-sm text-foreground/40 mb-6">
+            <span>Currently seeking internship opportunities</span>
+            <span>•</span>
+            <span>Available for remote & on-site positions</span>
+          </div>
+
+          <div className="border-t border-cyan-500/10 pt-6">
+            <p className="text-foreground/40 text-sm">
+              © 2024 Aniruddha Dey. Built with React, TypeScript & Tailwind CSS.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
