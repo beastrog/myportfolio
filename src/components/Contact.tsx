@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Github, Linkedin, Globe, Trophy, Mail, Phone, MapPin } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -45,13 +46,21 @@ const Contact = () => {
         emailData.append('resume', formData.resume);
       }
 
-      // Send email via backend API (when connected to Supabase)
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      console.log('Submitting contact form...');
+
+      // Send email via Supabase Edge Function
+      const { data, error } = await supabase.functions.invoke('send-email', {
         body: emailData,
       });
 
-      if (response.ok) {
+      console.log('Response from send-email function:', { data, error });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw error;
+      }
+
+      if (data?.success) {
         toast({
           title: "Message Sent Successfully!",
           description: "Thank you for reaching out. I'll get back to you within 24 hours!",
@@ -64,22 +73,21 @@ const Contact = () => {
           message: '',
           resume: null
         });
+
+        // Reset file input
+        const fileInput = document.getElementById('resume') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = '';
+        }
       } else {
-        throw new Error('Failed to send message');
+        throw new Error(data?.error || 'Failed to send message');
       }
     } catch (error) {
-      // Fallback for demo - simulate successful send
+      console.error('Error sending message:', error);
       toast({
-        title: "Message Received!",
-        description: "Thank you for reaching out. I'll get back to you soon! (Demo mode - connect Supabase for real email functionality)",
-      });
-      
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        resume: null
+        title: "Error Sending Message",
+        description: "There was an error sending your message. Please try again or contact me directly at deyaniruddha_goat@yahoo.com",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -87,7 +95,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 px-6">
+    <section id="contact" className="py-12 px-6">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
           Get In Touch
@@ -101,7 +109,7 @@ const Contact = () => {
               <p className="text-foreground/70 text-lg leading-relaxed mb-8">
                 I'm currently seeking summer internship opportunities (remote or on-site) in 
                 software development, machine learning, or quantitative research. Let's discuss 
-                how we can work together!
+                how we can work together to build innovative solutions!
               </p>
             </div>
 
@@ -142,7 +150,8 @@ const Contact = () => {
                 href="https://linkedin.com/in/aniruddha-dey-887b26312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-hover group"
+                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 group"
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
               </a>
@@ -150,7 +159,8 @@ const Contact = () => {
                 href="https://github.com/beastrog"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-hover group"
+                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 group"
+                aria-label="GitHub Profile"
               >
                 <Github className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
               </a>
@@ -158,7 +168,8 @@ const Contact = () => {
                 href="https://aniruddhadey.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-hover group"
+                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 group"
+                aria-label="Personal Website"
               >
                 <Globe className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
               </a>
@@ -166,7 +177,8 @@ const Contact = () => {
                 href="https://kaggle.com/aniruddhadey"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-hover group"
+                className="p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300 group"
+                aria-label="Kaggle Profile"
               >
                 <Trophy className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
               </a>
@@ -188,7 +200,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 cursor-hover hover:border-cyan-500/40"
+                    className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 hover:border-cyan-500/40"
                     placeholder="Your name"
                   />
                 </div>
@@ -203,7 +215,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 cursor-hover hover:border-cyan-500/40"
+                    className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 hover:border-cyan-500/40"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -220,7 +232,7 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 cursor-hover hover:border-cyan-500/40"
+                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 hover:border-cyan-500/40"
                   placeholder="What's this about?"
                 />
               </div>
@@ -236,7 +248,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 resize-none cursor-hover hover:border-cyan-500/40"
+                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 resize-none hover:border-cyan-500/40"
                   placeholder="Tell me about your project, opportunity, or just say hello!"
                 />
               </div>
@@ -251,14 +263,14 @@ const Contact = () => {
                   name="resume"
                   onChange={handleFileChange}
                   accept=".pdf,.doc,.docx"
-                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 cursor-hover file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/20 file:text-cyan-400 hover:file:bg-cyan-500/30"
+                  className="w-full px-4 py-3 bg-background/50 border border-cyan-500/20 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/20 file:text-cyan-400 hover:file:bg-cyan-500/30"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition-all duration-300 cursor-hover shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center">

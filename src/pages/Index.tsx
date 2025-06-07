@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import Resume from '../components/Resume';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
@@ -39,6 +40,7 @@ const Index = () => {
         <main className="space-y-0">
           <Hero />
           <About />
+          <Resume />
           <Skills />
           <Projects />
           <Contact />
