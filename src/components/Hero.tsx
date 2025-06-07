@@ -24,7 +24,27 @@ const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-6 pt-20 pb-10">
       <div className="text-center max-w-4xl mx-auto">
+        {/* Professional Photo */}
         <div className="mb-8 animate-fade-in">
+          <div className="relative w-48 h-48 mx-auto mb-8">
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border-2 border-cyan-500/30 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+              <img 
+                src="/placeholder.svg" 
+                alt="Aniruddha Dey - Software Engineer"
+                className="w-full h-full object-cover rounded-full"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.nextElementSibling!.classList.remove('hidden');
+                }}
+              />
+              <div className="hidden w-full h-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-white text-6xl font-bold">
+                AD
+              </div>
+            </div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/10 to-purple-500/10 animate-pulse"></div>
+          </div>
+          
           <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-scale-in">
             ANIRUDDHA DEY
           </h1>
@@ -35,10 +55,15 @@ const Hero = () => {
         </div>
 
         <div className="mb-12 animate-fade-in">
-          <p className="text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            B.Tech Computer Science student at VIT with expertise in full-stack development, 
-            machine learning, and quantitative trading. Co-founder of multiple startups with 
-            VC-backed funding.
+          <p className="text-lg md:text-xl text-foreground/70 max-w-4xl mx-auto leading-relaxed mb-6">
+            B.Tech Computer Science student at VIT with a passion for transforming innovative ideas into reality. 
+            Specializing in full-stack development, machine learning, and quantitative trading strategies.
+          </p>
+          <p className="text-base md:text-lg text-foreground/60 max-w-3xl mx-auto leading-relaxed">
+            Co-founder of multiple startups with VC-backed funding, competitive programming enthusiast with 
+            <span className="text-cyan-400 font-semibold"> CodeSignal GCA 500/600</span>, and experienced in 
+            building scalable solutions from concept to deployment. Currently exploring the intersection of 
+            AI and financial markets while contributing to open-source projects.
           </p>
         </div>
 
