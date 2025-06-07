@@ -44,7 +44,7 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in">
           <a
             href="#contact"
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full font-semibold hover:scale-105 transition-all duration-300 cursor-hover glow-effect"
+            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full font-semibold hover:scale-105 transition-all duration-300 cursor-hover shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.8)]"
           >
             Get In Touch
           </a>
@@ -79,15 +79,6 @@ const Hero = () => {
           </a>
         </div>
       </div>
-
-      <style jsx>{`
-        .glow-effect {
-          box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        }
-        .glow-effect:hover {
-          box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
-        }
-      `}</style>
     </section>
   );
 };

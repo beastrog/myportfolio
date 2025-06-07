@@ -207,7 +207,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition-all duration-300 cursor-hover glow-effect disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition-all duration-300 cursor-hover shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
@@ -215,15 +215,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .glow-effect {
-          box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-        .glow-effect:hover {
-          box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
-        }
-      `}</style>
     </section>
   );
 };
