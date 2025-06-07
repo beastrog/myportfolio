@@ -36,7 +36,7 @@ const Index = () => {
       
       <div className="relative z-10">
         <Header />
-        <main className="space-y-0">
+        <main>
           <Hero />
           <About />
           <Skills />
