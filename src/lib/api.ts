@@ -10,23 +10,33 @@ export interface ContactFormData {
 export const api = {
   async sendContactForm(data: ContactFormData): Promise<{ success: boolean; message?: string }> {
     try {
+      console.log('Sending request to:', `${API_BASE_URL}/api/contact`);
+      console.log('Request data:', data);
+
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(data),
       });
 
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to send message');
+        throw new Error(responseData.message || 'Failed to send message');
       }
 
-      return await response.json();
+      return responseData;
     } catch (error) {
       console.error('Error sending contact form:', error);
-      throw error;
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Failed to connect to the server. Please try again later.');
     }
   },
 

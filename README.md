@@ -1,56 +1,69 @@
-# My Portfolio
+# Aniruddha Dey - Portfolio
 
 [![Deploy to GitHub Pages](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml)
 
-A modern, responsive portfolio website built with React, TypeScript, and Vite. This project showcases my work, skills, and provides a way for visitors to get in touch with me. The frontend is deployed on GitHub Pages and the backend is deployed on Render.
+A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with React, TypeScript, and Vite for optimal performance.
 
-## Features
+## 🚀 Features
 
-- 🚀 Blazing fast performance with Vite
-- 🎨 Modern UI with responsive design
-- ✉️ Contact form with email functionality
-- 🔒 Secure backend with rate limiting and security headers
-- 📱 Mobile-friendly layout
+- ⚡ Blazing fast performance with Vite
+- 🎨 Modern UI with smooth animations
+- 📱 Fully responsive design
+- 📝 Interactive resume section
 - 🌐 SEO optimized
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite
-- **Styling**: CSS Modules, CSS Variables
-- **Backend**: Node.js, Express
-- **Email**: Resend
-- **Build Tools**: Vite, TypeScript
-- **Linting/Formatting**: ESLint, Prettier
-- **Containerization**: Docker
+- **Styling**: Tailwind CSS, Framer Motion
+- **UI Components**: Shadcn UI
+- **Icons**: Lucide React
+- **Form Handling**: React Hook Form
+- **State Management**: React Query
+- **Deployment**: GitHub Pages
 
-## Prerequisites
+## 🏃‍♂️ Getting Started
 
-- Node.js 18+ and npm 8+
-- Git
-- (Optional) Docker and Docker Compose
-
-## Getting Started
-
-### Clone the repository
-
-```bash
-git clone https://github.com/yourusername/your-portfolio.git
-cd your-portfolio
-```
-
-### Install dependencies
-
-```bash
-npm install
-```
-
-### Environment Setup
-
-1. Create a `.env` file in the root directory:
+1. **Clone the repository**
    ```bash
-   cp .env.example .env
+   git clone https://github.com/beastrog/myportfolio.git
+   cd myportfolio
    ```
-2. Update the environment variables in `.env` with your configuration.
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 🌟 Highlights
+
+- **Performance Optimized**: Built with Vite for fast development and production builds
+- **Modern UI**: Clean, accessible, and responsive design
+- **Interactive Elements**: Smooth animations and transitions
+- **Developer Experience**: TypeScript for type safety and better code quality
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📬 Contact
+
+- **Website**: [aniruddhadey.in](https://aniruddhadey.in)
+- **GitHub**: [@beastrog](https://github.com/beastrog)
+
+---
+
+Made with ❤️ by Aniruddha Dey
 
 ### Development
 
@@ -142,8 +155,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- Email: your.email@example.com
-- Website: https://yourwebsite.com
+- Email: deyaniruddha_goat@yahoo.com
+- Website: https://aniruddhadey.in
 - LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
 - GitHub: [@yourusername](https://github.com/yourusername)
 

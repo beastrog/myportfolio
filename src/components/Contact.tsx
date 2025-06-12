@@ -245,7 +245,7 @@ const Contact = () => {
                   <motion.a
                     whileHover={{ y: -3 }}
                     whileTap={{ scale: 0.95 }}
-                    href="https://aniruddhadey.dev"
+                    href="https://aniruddhadey.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-foreground/10 hover:border-blue-500/30 transition-all duration-300 group flex-1 flex flex-col items-center"

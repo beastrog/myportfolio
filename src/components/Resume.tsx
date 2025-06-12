@@ -6,14 +6,14 @@ const Resume = () => {
     // This would typically download a PDF file
     // For now, we'll create a placeholder action
     const link = document.createElement('a');
-    link.href = '/resume.pdf'; // You'll need to add this file to the public folder
-    link.download = 'Aniruddha_Dey_Resume.pdf';
+    link.href = '/aniruddha-dey-resume.pdf'; // Resume file in the public folder
+    link.download = 'aniruddha-dey-resume.pdf';
     link.click();
   };
 
   const handleViewResume = () => {
     // Open resume in new tab
-    window.open('/resume.pdf', '_blank');
+    window.open('/aniruddha-dey-resume.pdf', '_blank');
   };
 
   return (

@@ -5,10 +5,8 @@ node_modules/
 
 # Environment variables
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
 # Build output
 /dist
@@ -34,26 +32,100 @@ lerna-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.swp
+*~
 
 # Backend specific
 /backend/node_modules
-/backend/.env
 /backend/logs
 /backend/coverage
+/server/node_modules
+/server/dist
+/server/*.js
+/server/*.cjs
+/server/*.mjs
 
 # Production
-.cache
-.next
+.cache/
+.next/
+.vercel/
+.netlify/
+
+# Testing
+/coverage
 
 # Misc
-.cache/
+.output/
+.nuxt/
+.nitro/
+.temp/
+.tmp/
+*.tmp
+*.bak
+*.backup
+
+# Local development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE specific files
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.parcel-cache/
+
+# Next.js build output
+.next
+out
+
+# Production
+build
+
+# Server files
+server.js
+server.cjs
+server.mjs
+simple-server.js
+
+# Vercel
 .vercel
-.output
-.nuxt
-.nitro
-.cache
-.temp
-.tmp
-.temp
-.tmp
+
+# Supabase
+supabase/.temp
+supabase/functions/__pycache__

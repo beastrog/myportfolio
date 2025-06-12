@@ -15,11 +15,11 @@ type ContactFormData = {
 
 // Validate required environment variables
 if (!process.env.RESEND_API_KEY) {
-  console.error('Missing required environment variable: RESEND_API_KEY');
+  throw new Error('Missing required environment variable: RESEND_API_KEY');
 }
 
 if (!process.env.EMAIL_TO) {
-  console.error('Missing required environment variable: EMAIL_TO');
+  throw new Error('Missing required environment variable: EMAIL_TO');
 }
 
 // Validate email format
@@ -73,17 +73,7 @@ export default async function handler(
     // Prepare email data
     const emailSubject = subject ? `New Contact: ${subject}` : 'New Contact Form Submission';
     const fromEmail = process.env.EMAIL_FROM || 'Portfolio Contact <onboarding@resend.dev>';
-    const toEmail = process.env.EMAIL_TO || '';
-
-    if (!toEmail) {
-      throw new Error('Recipient email not configured');
-    }
-
-    console.log('Sending email with data:', { 
-      to: toEmail,
-      from: fromEmail,
-      subject: emailSubject
-    });
+    const toEmail = process.env.EMAIL_TO;
 
     // Send email using Resend
     const { data: emailData, error } = await resend.emails.send({
@@ -96,7 +86,7 @@ export default async function handler(
         email, 
         subject: emailSubject, 
         message 
-      }),
+      }) as React.ReactElement,
     });
 
     if (error) {
@@ -104,12 +94,10 @@ export default async function handler(
       return res.status(500).json({ 
         success: false, 
         message: 'Failed to send email',
-        error: error.message,
-        details: error
+        error: error.message
       });
     }
 
-    console.log('Email sent successfully:', emailData);
     return res.status(200).json({ 
       success: true, 
       message: 'Message sent successfully!',
@@ -121,10 +109,7 @@ export default async function handler(
     return res.status(500).json({ 
       success: false, 
       message: 'Internal server error',
-      error: error instanceof Error ? error.message : 'Unknown error',
-      ...(process.env.NODE_ENV === 'development' && error instanceof Error 
-        ? { stack: error.stack } 
-        : {})
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 }

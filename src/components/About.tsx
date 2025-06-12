@@ -78,7 +78,7 @@ const About = () => {
             <div className="relative group">
               <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 flex items-center justify-center overflow-hidden p-1">
                 <div className="w-full h-full bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-xl flex items-center justify-center">
-                  <div className="w-full h-full bg-[url('/profile-placeholder.jpg')] bg-cover bg-center rounded-xl overflow-hidden">
+                  <div className="w-full h-full bg-[url('/profile.jpg')] bg-cover bg-center rounded-xl overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-t from-background/90 via-background/30 to-transparent flex items-end p-6">
                       <div className="text-white">
                         <h3 className="text-2xl font-bold">Aniruddha Dey</h3>
@@ -101,14 +101,14 @@ const About = () => {
               variants={staggerContainer}
               className="prose prose-lg text-foreground/80 space-y-6"
             >
-              <motion.p variants={fadeInUp} className="leading-relaxed">
-                I'm <span className="font-semibold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Aniruddha Dey</span>, a highly motivated B.Tech Computer Science & Engineering 
+              <motion.p variants={fadeInUp} className="text-lg leading-relaxed mb-6">
+                I'm <span className="font-semibold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Aniruddha Dey</span>, a highly passionate B.Tech Computer Science & Engineering 
                 student at <span className="font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Vellore Institute of Technology</span> with a passion for building 
                 scalable systems and AI-powered applications. Currently in my academic journey from 2024-2028, I maintain an excellent 
                 academic record while actively engaging in competitive programming and real-world projects.
               </motion.p>
               
-              <motion.p variants={fadeInUp} className="leading-relaxed">
+              <motion.p variants={fadeInUp} className="text-lg leading-relaxed mb-6">
                 Recognized as an <span className="font-semibold text-cyan-400">SBI Ideathon Finalist</span> for my innovative FaceX AI Payment System, 
                 I've demonstrated my ability to create cutting-edge solutions that bridge technology and practical applications. 
                 I'm actively preparing for <span className="font-semibold text-purple-400">ICPC</span> and have achieved a remarkable 
@@ -116,17 +116,11 @@ const About = () => {
                 thinking and problem-solving capabilities.
               </motion.p>
 
-              <motion.p variants={fadeInUp} className="leading-relaxed">
+              <motion.p variants={fadeInUp} className="text-lg leading-relaxed">
                 My professional journey includes interviews at prestigious firms like 
                 <span className="font-semibold text-purple-400"> Hudson River Trading</span> for Quantitative Engineer positions and receiving 
                 trading day invitations from <span className="font-semibold text-cyan-400">Susquehanna Group</span>. These experiences have 
                 refined my analytical thinking and exposed me to high-frequency trading and quantitative finance domains.
-              </motion.p>
-
-              <motion.p variants={fadeInUp} className="leading-relaxed">
-                Currently, I'm co-founding multiple startups through our university incubation center with VC-backed seed funding, 
-                focusing on the Indian market with cutting-edge AI/ML integration. My entrepreneurial ventures combine technical 
-                innovation with market understanding, aiming to solve real-world problems through technology.
               </motion.p>
             </motion.div>
 

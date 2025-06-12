@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Trophy } from 'lucide-react';
 import { Button } from './ui/button';
 
 const container = {
@@ -33,14 +33,14 @@ const socialLinks = [
     className: 'hover:text-blue-500',
   },
   {
-    name: 'Twitter',
-    href: 'https://twitter.com/aniruddhadey',
-    icon: Twitter,
-    className: 'hover:text-sky-500',
+    name: 'Kaggle',
+    href: 'https://kaggle.com/adbeast',
+    icon: Trophy,
+    className: 'hover:text-blue-500',
   },
   {
     name: 'Email',
-    href: 'mailto:aniruddhadey@example.com',
+    href: 'mailto:deyaniruddha_goat@yahoo.com',
     icon: Mail,
     className: 'hover:text-red-500',
   },
@@ -133,8 +133,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.p className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-6 sm:mb-8" variants={item}>
-              Building intelligent systems and solving complex problems through code and algorithms.
-              Currently pursuing B.Tech in Computer Science at VIT, Co-founder of multiple startups.
+              Building intelligent systems and solving complex problems through code and algorithms. Currently pursuing B.Tech in Computer Science at VIT, while actively engaging in competitive programming and real-world projects.
             </motion.p>
 
             <motion.div className="flex flex-wrap gap-4" variants={item}>

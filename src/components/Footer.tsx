@@ -33,7 +33,7 @@ const Footer = () => {
               <span>GitHub</span>
             </a>
             <a
-              href="https://aniruddhadey.dev"
+              href="https://aniruddhadey.in"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
@@ -42,7 +42,7 @@ const Footer = () => {
               <span>Website</span>
             </a>
             <a
-              href="https://kaggle.com/aniruddhadey"
+              href="https://kaggle.com/adbeast"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"

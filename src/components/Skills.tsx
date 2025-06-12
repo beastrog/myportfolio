@@ -86,19 +86,19 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-16 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/10">
+    <section id="skills" className="py-20 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/5">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
             Technical Skills
           </h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
+          <p className="text-foreground/80 max-w-2xl mx-auto text-lg">
             Here are the technologies and tools I work with on a regular basis.
           </p>
         </motion.div>
@@ -114,10 +114,11 @@ const Skills = () => {
             <motion.div
               key={index}
               variants={item}
-              className="group p-6 rounded-2xl bg-gradient-to-br from-background to-muted/30 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5"
+              className="group relative p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-foreground/5 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 overflow-hidden"
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               <div className="flex items-center gap-3 mb-6">
-                <div className={`p-2 rounded-lg bg-gradient-to-br ${category.gradient} text-background`}>
+                <div className={`p-2 rounded-lg bg-gradient-to-br ${category.gradient} text-background shadow-md`}>
                   {category.icon}
                 </div>
                 <h3 className={`text-xl font-semibold bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`}>
@@ -125,21 +126,23 @@ const Skills = () => {
                 </h3>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {category.skills.map((skill, skillIndex) => {
                   const level = skillLevels[skill] || 80;
                   return (
                     <div key={skillIndex} className="group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-2">
-                          {skillIcons[skill] || <Code className="w-4 h-4" />}
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2.5">
+                          <div className="p-1.5 rounded-md bg-foreground/5">
+                            {skillIcons[skill] || <Code className="w-4 h-4 text-foreground/70" />}
+                          </div>
                           <span className="text-sm font-medium text-foreground/90">{skill}</span>
                         </div>
-                        <span className="text-xs font-mono text-foreground/50">{level}%</span>
+                        <span className="text-xs font-mono font-medium text-foreground/60">{level}%</span>
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-foreground/5 rounded-full overflow-hidden">
                         <motion.div 
-                          className={`h-full rounded-full bg-gradient-to-r ${category.gradient}`}
+                          className={`h-full rounded-full bg-gradient-to-r ${category.gradient} shadow-sm`}
                           initial={{ width: 0 }}
                           whileInView={{ width: `${level}%` }}
                           viewport={{ once: true }}
@@ -159,19 +162,20 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-16 lg:mt-20"
+          className="mt-20 lg:mt-24"
         >
-          <div className="max-w-4xl mx-auto p-6 md:p-8 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-purple-500/5 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-500">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-yellow-400 to-amber-500 text-background">
+          <div className="max-w-5xl mx-auto p-8 rounded-2xl bg-background/50 backdrop-blur-sm border border-foreground/5 hover:border-cyan-500/30 transition-all duration-500 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 text-background shadow-md">
                 <Award className="w-6 h-6" />
               </div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
                 Certifications & Achievements
               </h3>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
@@ -179,22 +183,24 @@ const Skills = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="p-4 rounded-xl bg-background/50 border border-cyan-500/10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300"
+                  className="group p-4 rounded-xl bg-background/80 border border-foreground/5 hover:border-cyan-500/30 hover:shadow-md transition-all duration-300"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="p-1.5 rounded-md bg-cyan-500/10 text-cyan-400 mt-0.5">
+                    <div className="p-1.5 rounded-md bg-gradient-to-br from-cyan-500/10 to-purple-500/10 text-cyan-400 group-hover:from-cyan-500/20 group-hover:to-purple-500/20 transition-all duration-300">
                       <Zap className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="font-medium text-foreground/90">{cert.name}</h4>
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <span className="text-xs text-foreground/60">{cert.platform}</span>
+                      <h4 className="font-medium text-foreground/90 group-hover:text-foreground transition-colors">{cert.name}</h4>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                        <span className="text-xs font-medium text-foreground/70 bg-foreground/5 px-2 py-0.5 rounded-full">
+                          {cert.platform}
+                        </span>
                         {cert.level && (
-                          <div className="flex">
+                          <div className="flex items-center gap-0.5">
                             {[...Array(5)].map((_, i) => (
                               <Star 
                                 key={i} 
-                                className={`w-3 h-3 ${i < (cert.level || 0) ? 'fill-yellow-400 text-yellow-400' : 'text-foreground/20'}`} 
+                                className={`w-3 h-3 ${i < (cert.level || 0) ? 'fill-amber-400 text-amber-400' : 'text-foreground/10'}`} 
                               />
                             ))}
                           </div>
