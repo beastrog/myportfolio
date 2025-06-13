@@ -9,42 +9,21 @@
       }
     },
     {
-      "src": "server/src/server.ts",
+      "src": "server/dist/serverless.js",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb",
-        "includeFiles": [
-          "server/dist/**"
-        ]
+        "maxLambdaSize": "50mb"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api",
-      "headers": {
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "Referrer-Policy": "strict-origin-when-cross-origin"
-      }
-    },
-    {
-      "src": "/assets/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "dest": "/api"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/$1",
-      "headers": {
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "Referrer-Policy": "strict-origin-when-cross-origin"
-      }
+      "dest": "/dist/$1"
     }
   ],
   "env": {

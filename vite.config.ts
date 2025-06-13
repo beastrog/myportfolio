@@ -42,6 +42,10 @@ export default defineConfig(({ mode }): UserConfig => {
       sourcemap: isProduction ? 'hidden' : true,
       minify: isProduction ? 'esbuild' : false,
       cssMinify: isProduction,
+      commonjsOptions: {
+        include: /node_modules/,
+      },
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           entryFileNames: 'assets/[name].[hash].js',
