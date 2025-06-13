@@ -30,42 +30,57 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    // In development, allow all localhost origins
-    if (process.env.NODE_ENV === 'development') {
-      if (origin.startsWith('http://localhost:')) {
+    // In development, allow all localhost origins and Vercel preview URLs
+    if (process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') {
+      if (
+        origin.startsWith('http://localhost:') || 
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.vercel.app/')
+      ) {
         return callback(null, true);
       }
     }
 
     // In production, check against allowed origins
-    if (config.cors.origins.includes(origin)) {
+    if (config.cors?.origins?.includes(origin)) {
       return callback(null, true);
     }
 
+    console.warn(`Blocked request from origin: ${origin}`);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Accept']
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar']
 };
 
-// Enable CORS for all routes
+// Apply CORS before routes
 app.use(cors(corsOptions));
 
-// Request logging
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next();
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Body parsing middleware
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Health check endpoint
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // API routes
 app.use('/api', apiRoutes);
 
-// 404 handler
+// Error handling middleware - must be after all other middleware and routes
+app.use(errorHandler);
+
+// Handle 404
 app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    status: 'fail',
-    message: `Cannot ${req.method} ${req.originalUrl}`
+  res.status(404).json({ 
+    success: false, 
+    message: `Route ${req.originalUrl} not found` 
   });
 });
 
