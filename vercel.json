@@ -9,29 +9,16 @@
       }
     },
     {
-      "src": "server/dist/serverless.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/$1"
+      "src": "server/dist/server.js",
+      "use": "@vercel/node"
     }
   ],
   "env": {
     "NODE_ENV": "production"
   },
   "buildCommand": "npm run vercel-build",
+  "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "dist",
   "framework": "vite",
-  "regions": ["lhr1"],
-  "public": true
+  "regions": ["lhr1"]
 }
