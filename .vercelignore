@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build files
+.next/
+out/
+
+# Environment variables
+.env*
+!.env.example
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local development
+.DS_Store
+
+# IDE specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test files
+__tests__/
+*.test.*
+*.spec.*
+
+# Local development
+server/
+
+# Vercel specific
+.vercel/

@@ -1,24 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function FuturisticCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ x: -100, y: -100 });
   const cursorSize = isHovered ? 40 : 20;
-  
-  // Smooth movement with spring physics
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const x = useSpring(cursorX, springConfig);
-  const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - cursorSize / 2);
-      cursorY.set(e.clientY - cursorSize / 2);
+      setPosition({
+        x: e.clientX - cursorSize / 2,
+        y: e.clientY - cursorSize / 2
+      });
       setIsVisible(true);
     };
 
@@ -59,46 +55,48 @@ export default function FuturisticCursor() {
       document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
       cleanup();
     };
-  }, [cursorSize, cursorX, cursorY]);
+  }, [cursorSize]);
 
   return (
     <motion.div
       className="fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-[9999] mix-blend-difference"
       style={{
-        x,
-        y,
         width: cursorSize,
         height: cursorSize,
         opacity: isVisible ? 1 : 0,
-        transition: 'width 0.2s ease, height 0.2s ease, opacity 0.2s ease',
+      }}
+      animate={{
+        x: position.x,
+        y: position.y,
+        scale: isHovered ? 1.5 : 1,
+      }}
+      transition={{
+        type: "spring",
+        damping: 25,
+        stiffness: 700,
+        mass: 0.5
       }}
     >
       <div className="relative w-full h-full">
         {/* Outer glow */}
-        <div 
-          className={cn(
-            'absolute inset-0 rounded-full bg-cyan-400/20 backdrop-blur-sm',
-            'transition-all duration-300',
-            isHovered ? 'scale-150' : 'scale-100'
-          )}
+        <motion.div 
+          className="absolute inset-0 rounded-full bg-cyan-400/20 backdrop-blur-sm"
+          animate={{ scale: isHovered ? 1.5 : 1 }}
+          transition={{ duration: 0.3 }}
         />
         
         {/* Inner cursor */}
-        <div 
-          className={cn(
-            'absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500',
-            'transition-all duration-200',
-            isHovered ? 'scale-75' : 'scale-100'
-          )}
+        <motion.div 
+          className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500"
+          animate={{ scale: isHovered ? 0.75 : 1 }}
+          transition={{ duration: 0.2 }}
         />
         
         {/* Center dot */}
-        <div 
-          className={cn(
-            'absolute inset-1/2 w-1 h-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white',
-            'transition-transform duration-100',
-            isHovered ? 'scale-0' : 'scale-100'
-          )}
+        <motion.div 
+          className="absolute inset-1/2 w-1 h-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
+          animate={{ scale: isHovered ? 0 : 1 }}
+          transition={{ duration: 0.1 }}
         />
       </div>
     </motion.div>
