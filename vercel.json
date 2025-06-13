@@ -5,8 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "cleanUrls": true
+        "distDir": "dist"
       }
     },
     {
@@ -28,7 +27,7 @@
     "NODE_ENV": "production"
   },
   "buildCommand": "npm run vercel-build",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install --legacy-peer-deps --no-audit --prefer-offline",
   "outputDirectory": "dist",
   "framework": "vite",
   "regions": ["lhr1"]
