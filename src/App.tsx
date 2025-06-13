@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Seo from '@/components/Seo';
 import LoadingSpinner from '@/components/ui/loading-spinner';
@@ -59,6 +61,8 @@ const AppContent = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
+        <Analytics />
+        <SpeedInsights />
       </Suspense>
     </>
   );
