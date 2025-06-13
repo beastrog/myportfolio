@@ -16,43 +16,48 @@ app.use((req, res, next) => {
   next();
 });
 
-// Start the server
-const port = config.port;
-const server = app.listen(port, '0.0.0.0', () => {
-  console.log(`\n=== Server Started ===`);
-  console.log(`Server is running on port ${port}`);
-  console.log(`Environment: ${config.env}`);
-  console.log(`CORS Origins:`, config.cors.origin);
-  console.log(`API Routes:`);
-  console.log(`- GET /api/health`);
-  console.log(`- POST /api/contact`);
-  console.log('====================\n');
-});
-
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err: Error) => {
-  console.error('UNHANDLED REJECTION! 💥 Shutting down...');
-  console.error('Error Name:', err.name);
-  console.error('Error Message:', err.message);
-  console.error('Error Stack:', err.stack);
-  server.close(() => {
-    process.exit(1);
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  const port = config.port;
+  const server = app.listen(port, '0.0.0.0', () => {
+    console.log(`\n=== Server Started ===`);
+    console.log(`Server is running on port ${port}`);
+    console.log(`Environment: ${config.env}`);
+    console.log(`CORS Origins:`, config.cors.origin);
+    console.log(`API Routes:`);
+    console.log(`- GET /api/health`);
+    console.log(`- POST /api/contact`);
+    console.log('====================\n');
   });
-});
 
-// Handle uncaught exceptions
-process.on('uncaughtException', (err: Error) => {
-  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-  console.error(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
+  // Handle unhandled promise rejections
+  process.on('unhandledRejection', (err: Error) => {
+    console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.error('Error Name:', err.name);
+    console.error('Error Message:', err.message);
+    console.error('Error Stack:', err.stack);
+    server.close(() => {
+      process.exit(1);
+    });
   });
-});
 
-// Handle SIGTERM for graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
-  server.close(() => {
-    console.log('💥 Process terminated!');
+  // Handle uncaught exceptions
+  process.on('uncaughtException', (err: Error) => {
+    console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.error(err.name, err.message);
+    server.close(() => {
+      process.exit(1);
+    });
   });
-});
+
+  // Handle SIGTERM for graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
+    server.close(() => {
+      console.log('💥 Process terminated!');
+    });
+  });
+}
+
+// Export the Express app for Vercel
+export default app;
