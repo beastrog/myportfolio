@@ -12,13 +12,13 @@
     "server": "cd server && npm run dev",
     "dev:all": "concurrently -n \"FRONTEND,BACKEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev\" \"npm run server\"",
     "build": "tsc && vite build",
-    "build:server": "cd server && npm run build",
-    "vercel-build": "npm run build",
+    "build:server": "cd server && npm install && npm run build",
+    "vercel-build": "npm install --legacy-peer-deps && npm run build",
+    "vercel-dev": "vite --host",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "node server/dist/server.js",
-    "start:prod": "cross-env NODE_ENV=production node server/dist/server.js",
-    "start:vercel": "node server/dist/serverless.js"
+    "start:prod": "cross-env NODE_ENV=production node server/dist/server.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -54,6 +54,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@vercel/node": "^3.0.4",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
