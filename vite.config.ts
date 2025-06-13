@@ -1,50 +1,69 @@
-import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { resolve } from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  const isProduction = mode === 'production';
-
-  return {
-    base: '/',
-    plugins: [react()],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
+export default defineConfig({
+  plugins: [
+    react()
+  ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+      'react-helmet-async': 'react-helmet-async',
+    },
+  },
+  build: {
+    target: 'es2020',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+              return 'vendor-react';
+            }
+            if (id.includes('@vercel/analytics') || id.includes('@vercel/speed-insights')) {
+              return 'vercel';
+            }
+            if (id.includes('react-router')) {
+              return 'vendor-router';
+            }
+            return 'vendor-other';
+          }
+        },
+      },
+      external: ['@rollup/rollup-linux-x64-gnu']
+    },
+    chunkSizeWarningLimit: 1000,
+    commonjsOptions: {
+      include: [/node_modules/],
+      extensions: ['.js', '.cjs'],
+      transformMixedEsModules: true
+    }
+  },
+  define: {
+    'process.env': {
+      ...Object.entries(process.env).reduce((acc, [key, val]) => {
+        if (key.startsWith('VITE_')) {
+          acc[key] = `"${val}"`;
+        }
+        return acc;
+      }, {}),
+      NODE_ENV: `"${process.env.NODE_ENV || 'development'}"`,
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-helmet-async'],
+    esbuildOptions: {
+      target: 'es2020',
+      supported: { 
+        bigint: true
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'dist',
-      minify: isProduction ? 'esbuild' : false,
-      sourcemap: isProduction ? false : 'inline',
-      chunkSizeWarningLimit: 1000,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'react-vendor': ['react', 'react-dom'],
-            'router': ['react-router-dom'],
-            'vercel': ['@vercel/analytics', '@vercel/speed-insights']
-          }
-        }
-      }
-    },
-    define: {
-      'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL || '')
-    },
-    optimizeDeps: {
-      include: [
-        'react',
-        'react-dom',
-        'react-router-dom',
-        'react-helmet-async'
-      ]
-    },
-    ssr: {
-      noExternal: ['react-helmet-async']
-    }
-  };
+  },
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
 });
