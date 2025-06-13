@@ -53,25 +53,29 @@ export default defineConfig(({ mode }): UserConfig => {
           assetFileNames: 'assets/[name].[hash][extname]',
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
+              if (id.includes('react-helmet-async')) {
+                return 'helmet';
+              }
               return 'vendor';
             }
           },
         },
       },
     },
-    plugins: [
+    plugins: ([
       react(),
       // Visualize bundle size in production
-      isProduction && visualizer({
+      isProduction ? visualizer({
         open: false,
         filename: 'dist/stats.html',
         gzipSize: true,
         brotliSize: true,
-      }),
-    ].filter(Boolean),
+      }) : null,
+    ].filter(Boolean) as unknown) as PluginOption[],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
+        'react-helmet-async': path.resolve(__dirname, 'node_modules/react-helmet-async/lib/index.js'),
       },
     },
     // Expose env variables to the client
@@ -88,9 +92,17 @@ export default defineConfig(({ mode }): UserConfig => {
     },
     // Optimize dependencies for faster development
     optimizeDeps: {
-      include: ['react', 'react-dom', 'react-router-dom'],
+      include: [
+        'react', 
+        'react-dom', 
+        'react-router-dom',
+        'react-helmet-async'
+      ],
       esbuildOptions: {
         target: 'es2020',
+        define: {
+          global: 'globalThis',
+        },
       },
     },
     // Enable CSS modules
