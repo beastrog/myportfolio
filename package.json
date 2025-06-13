@@ -9,7 +9,7 @@
     "dev:all": "concurrently -n \"FRONTEND,BACKEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev\" \"npm run server\"",
     "build": "tsc && vite build",
     "build:server": "cd server && npm run build",
-    "vercel-build": "npm run build && npm run build:server",
+    "vercel-build": "npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "node server/dist/server.js",

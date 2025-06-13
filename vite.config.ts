@@ -43,7 +43,8 @@ export default defineConfig(({ mode }): UserConfig => {
       minify: isProduction ? 'esbuild' : false,
       cssMinify: isProduction,
       commonjsOptions: {
-        include: /node_modules/,
+        include: [/node_modules/],
+        transformMixedEsModules: true,
       },
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
@@ -75,8 +76,8 @@ export default defineConfig(({ mode }): UserConfig => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        'react-helmet-async': path.resolve(__dirname, 'node_modules/react-helmet-async/lib/index.js'),
       },
+      dedupe: ['react', 'react-dom'],
     },
     // Expose env variables to the client
     define: {
@@ -96,7 +97,9 @@ export default defineConfig(({ mode }): UserConfig => {
         'react', 
         'react-dom', 
         'react-router-dom',
-        'react-helmet-async'
+        'react-helmet-async',
+        '@vercel/analytics',
+        '@vercel/speed-insights'
       ],
       esbuildOptions: {
         target: 'es2020',
