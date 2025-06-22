@@ -28,7 +28,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/aniruddhadey',
+    href: 'https://linkedin.com/in/aniruddha-dey-887b26312',
     icon: Linkedin,
     className: 'hover:text-blue-500',
   },

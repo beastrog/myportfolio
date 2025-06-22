@@ -1,183 +1,135 @@
-# Aniruddha Dey - Portfolio
+# Portfolio Project
 
-[![Deploy to GitHub Pages](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/beastrog/myportfolio/actions/workflows/deploy.yml)
-
-A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with React, TypeScript, and Vite for optimal performance.
-
-## 🚀 Features
-
-- ⚡ Blazing fast performance with Vite
-- 🎨 Modern UI with smooth animations
-- 📱 Fully responsive design
-- 📝 Interactive resume section
-- 🌐 SEO optimized
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, Framer Motion
-- **UI Components**: Shadcn UI
-- **Icons**: Lucide React
-- **Form Handling**: React Hook Form
-- **State Management**: React Query
-- **Deployment**: GitHub Pages
-
-## 🏃‍♂️ Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/beastrog/myportfolio.git
-   cd myportfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-## 🌟 Highlights
-
-- **Performance Optimized**: Built with Vite for fast development and production builds
-- **Modern UI**: Clean, accessible, and responsive design
-- **Interactive Elements**: Smooth animations and transitions
-- **Developer Experience**: TypeScript for type safety and better code quality
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📬 Contact
-
-- **Website**: [aniruddhadey.in](https://aniruddhadey.in)
-- **GitHub**: [@beastrog](https://github.com/beastrog)
+A modern, full-stack portfolio web application built with **Vite** (React + TypeScript) for the frontend and **Express** for the backend, designed for seamless deployment on **Vercel**.
 
 ---
 
-Made with ❤️ by Aniruddha Dey
+## Features
+- ⚡️ Fast, modern React frontend (Vite, TypeScript, TailwindCSS)
+- 🔒 Secure, robust Express backend (API, email, CORS, etc.)
+- 📧 Contact form with email sending (Resend API)
+- 🌐 SEO, analytics, and beautiful UI
+- ☁️ One-click deploy to Vercel
 
-### Development
+---
 
-Start the development server:
+## Getting Started
 
+### 1. Clone the repository
 ```bash
-# Start both frontend and backend
-dev:all
-
-# Or start them separately
-npm run dev      # Frontend
-dev:server       # Backend
+git clone <your-repo-url>
+cd myportfolio
 ```
 
-The application will be available at `http://localhost:8080`.
+### 2. Install dependencies
+```bash
+npm install
+cd server && npm install
+```
+
+### 3. Set up environment variables
+Create a `.env` file in both `myportfolio/` and `myportfolio/server/` as needed. Example for backend:
+```env
+NODE_ENV=development
+PORT=3001
+EMAIL_FROM=your@email.com
+EMAIL_TO=your@email.com
+RESEND_API_KEY=your_resend_api_key
+CORS_ORIGINS=http://localhost:3000,http://localhost:8080,http://localhost:5173,https://yourdomain.com
+```
+
+### 4. Run in development
+- **Frontend:**
+  ```bash
+  npm run dev
+  ```
+- **Backend:**
+  ```bash
+  cd server
+  npm run dev
+  ```
+- Or run both:
+  ```bash
+  npm run dev:all
+  ```
+
+The app will be available at `http://localhost:5173` (frontend) and `http://localhost:3001` (backend).
+
+---
 
 ## Building for Production
 
-### Option 1: Using the build script (Recommended)
-
 ```bash
-node build.js
-```
-
-The production build will be available in the `dist` directory.
-
-### Option 2: Manual Build
-
-```bash
-# Install production dependencies
-npm ci --only=production
-
-# Build the frontend
 npm run build
-
-# Build the server
-npm run build:server
+cd server && npm run build
 ```
 
-## Deployment
+- Frontend output: `myportfolio/dist/`
+- Backend output: `myportfolio/server/dist/`
 
-Detailed deployment instructions are available in [DEPLOYMENT.md](DEPLOYMENT.md).
+---
 
-### Quick Deployment with Docker
+## Deploying to Vercel
 
-1. Build the Docker image:
-   ```bash
-   docker build -t my-portfolio .
-   ```
+1. **Push your code to GitHub/GitLab.**
+2. **Connect your repo to Vercel** (https://vercel.com/import).
+3. Vercel will auto-detect the build and output settings from `vercel.json`:
+   - Build command: `npm run vercel-build`
+   - Output directory: `dist`
+   - API routes: `/api/*` handled by Express backend
+4. **Set environment variables** in the Vercel dashboard (same as `.env`).
+5. **Deploy!**
 
-2. Run the container:
-   ```bash
-   docker run -p 3001:3001 --env-file .env.production my-portfolio
-   ```
+---
 
 ## Project Structure
 
 ```
-.
-├── src/                    # Frontend source code
-│   ├── components/         # React components
-│   ├── pages/              # Page components
-│   ├── styles/             # Global styles
-│   └── utils/              # Utility functions
-├── server/                 # Backend server code
-│   ├── index.ts            # Server entry point
-│   └── routes/             # API routes
-├── public/                 # Static files
-├── dist/                   # Production build output
-├── .env.example            # Example environment variables
-├── .env.production         # Production environment variables
-├── package.json            # Project configuration
-├── tsconfig.json           # TypeScript configuration
-├── vite.config.ts          # Vite configuration
-└── README.md               # This file
+myportfolio/
+├── src/                # Frontend source code (React, TS)
+├── public/             # Static assets
+├── dist/               # Frontend build output
+├── server/             # Backend (Express, API, email)
+│   ├── src/
+│   └── dist/
+├── .env                # Frontend env vars (optional)
+├── package.json        # Frontend config/scripts
+├── vercel.json         # Vercel deployment config
+└── README.md
 ```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Environment Variables
+- `NODE_ENV` - `development` or `production`
+- `PORT` - Backend port (default: 3001)
+- `EMAIL_FROM` - Sender email for contact form
+- `EMAIL_TO` - Recipient email for contact form
+- `RESEND_API_KEY` - API key for Resend email service
+- `CORS_ORIGINS` - Comma-separated list of allowed origins
+
+---
+
+## Troubleshooting
+- **Blank page or JS MIME errors?**
+  - Make sure `dist/` is NOT ignored in `.vercelignore`.
+  - Ensure `vercel.json` has `outputDirectory: "dist"`.
+  - Check Vercel build logs for errors.
+- **CORS errors?**
+  - Ensure `CORS_ORIGINS` is set correctly in your backend `.env`.
+  - Restart the backend after changing `.env`.
+- **Email not sending?**
+  - Check `RESEND_API_KEY` and email addresses in `.env`.
+
+---
+
+## Contributing
+1. Fork the repo
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes
+4. Push and open a pull request
+
+---
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-- Email: deyaniruddha_goat@yahoo.com
-- Website: https://aniruddhadey.in
-- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
-- GitHub: [@yourusername](https://github.com/yourusername)
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/951abbde-2b87-48bf-9272-3883aa0ed809) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT
