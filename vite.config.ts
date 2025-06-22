@@ -19,20 +19,20 @@ export default defineConfig({
     minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@vercel/analytics') || id.includes('@vercel/speed-insights')) {
-              return 'vercel';
-            }
-            if (id.includes('react-router')) {
-              return 'vendor-router';
-            }
-            return 'vendor-other';
-          }
-        },
+        // manualChunks: (id) => {
+        //   if (id.includes('node_modules')) {
+        //     if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+        //       return 'vendor-react';
+        //     }
+        //     if (id.includes('@vercel/analytics') || id.includes('@vercel/speed-insights')) {
+        //       return 'vercel';
+        //     }
+        //     if (id.includes('react-router')) {
+        //       return 'vendor-router';
+        //     }
+        //     return 'vendor-other';
+        //   }
+        // },
       },
     },
     chunkSizeWarningLimit: 1000,
