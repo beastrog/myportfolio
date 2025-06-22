@@ -55,7 +55,7 @@ export const submitContactForm = async (req: Request, res: Response) => {
     const { data, error } = await resend.emails.send({
       from: config.email.from,
       to: config.email.to,
-      replyTo: email,
+      reply_to: email,
       subject: emailSubject,
       react: ContactFormEmail({ 
         name, 
