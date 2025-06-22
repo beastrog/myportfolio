@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
-import { ContactFormEmail } from '@/components/email/ContactFormEmail';
+// import { ContactFormEmail } from '@/components/email/ContactFormEmail';
 
 // Initialize Resend with environment variable
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -76,32 +76,40 @@ export default async function handler(
     const toEmail = process.env.EMAIL_TO;
 
     // Send email using Resend
-    const { data: emailData, error } = await resend.emails.send({
-      from: fromEmail,
-      to: [toEmail],
-      reply_to: email,
-      subject: emailSubject,
-      react: ContactFormEmail({ 
-        name, 
-        email, 
-        subject: emailSubject, 
-        message 
-      }) as React.ReactElement,
-    });
-
-    if (error) {
-      console.error('Resend API error:', error);
-      return res.status(500).json({ 
-        success: false, 
-        message: 'Failed to send email',
-        error: error.message
-      });
-    }
-
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Message sent successfully!',
-      data: emailData
+    // NOTE: Email rendering must be handled in the backend/server, not in the frontend.
+    // Remove or replace the following with a backend API call:
+    // const { data: emailData, error } = await resend.emails.send({
+    //   from: fromEmail,
+    //   to: [toEmail],
+    //   reply_to: email,
+    //   subject: emailSubject,
+    //   react: ContactFormEmail({ 
+    //     name, 
+    //     email, 
+    //     subject: emailSubject, 
+    //     message 
+    //   }) as React.ReactElement,
+    // });
+    //
+    // if (error) {
+    //   console.error('Resend API error:', error);
+    //   return res.status(500).json({ 
+    //     success: false, 
+    //     message: 'Failed to send email',
+    //     error: error.message
+    //   });
+    // }
+    //
+    // return res.status(200).json({ 
+    //   success: true, 
+    //   message: 'Message sent successfully!',
+    //   data: emailData
+    // });
+    //
+    // Instead, call your backend API here to send the email.
+    return res.status(501).json({
+      success: false,
+      message: 'Email sending must be handled by the backend/server.'
     });
 
   } catch (error) {

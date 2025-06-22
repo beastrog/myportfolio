@@ -37,3 +37,9 @@ server/
 # Vercel specific
 .vercel/
 server/dist/server.js
+
+# Git
+.git
+
+# Coverage
+coverage

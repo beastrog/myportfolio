@@ -7,12 +7,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "start:prod": "cross-env NODE_ENV=production node -r dotenv/config dist/server.js",
-    "vercel-build": "npm install && npm run build",
-    "debug": "cross-env NODE_OPTIONS='--inspect' NODE_ENV=development tsx watch src/server.ts",
-    "lint": "eslint . --ext .ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,8 +19,10 @@
     "express": "^4.18.3",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
-    "react": "^18.2.0",
     "resend": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
