@@ -5,7 +5,6 @@ import compression from 'compression';
 import config from './config/config.js';
 import errorHandler from './middleware/errorHandler.js';
 import apiRoutes from './routes/api.js';
-import morgan from 'morgan';
 
 const app = express();
 console.log('CORS_ORIGINS at runtime:', process.env.CORS_ORIGINS);
@@ -14,9 +13,6 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
   crossOriginOpenerPolicy: { policy: 'unsafe-none' }
 }));
-
-// Logging middleware
-app.use(morgan('dev'));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10kb' }));
