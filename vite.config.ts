@@ -34,7 +34,6 @@ export default defineConfig({
           }
         },
       },
-      external: ['@rollup/rollup-linux-x64-gnu']
     },
     chunkSizeWarningLimit: 1000,
     commonjsOptions: {
