@@ -36,5 +36,4 @@ server/
 
 # Vercel specific
 .vercel/
-dist/
 server/dist/server.js
