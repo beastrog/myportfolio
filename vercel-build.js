@@ -61,6 +61,15 @@ module.exports = async (req, res) => {
 
   // Write the serverless wrapper
   fs.writeFileSync(path.join(serverDist, 'serverless.js'), serverlessWrapper);
+
+  const resumePath = path.join(__dirname, 'dist', 'aniruddha-dey-resume.pdf');
+  if (!fs.existsSync(resumePath)) {
+    console.error('ERROR: aniruddha-dey-resume.pdf is missing from dist/. Please ensure it is present in public/ before building.');
+    process.exit(1);
+  } else {
+    console.log('✔ aniruddha-dey-resume.pdf is present in dist/.');
+  }
+
   console.log('✅ Build completed successfully!');
 } catch (error) {
   console.error('❌ Build failed with error:', error);
