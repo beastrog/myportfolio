@@ -85,7 +85,8 @@ const Projects = () => {
             <motion.div
               key={index}
               variants={item}
-              className="group relative p-6 rounded-2xl bg-gradient-to-br from-background to-muted/30 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 overflow-hidden"
+              whileHover={{ scale: 1.04, boxShadow: '0 0 32px 0 #06b6d4aa', borderColor: '#06b6d4' }}
+              className="group relative p-6 rounded-2xl bg-gradient-to-br from-background to-muted/30 border border-cyan-500/10 hover:border-cyan-400 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/10 overflow-hidden animate-gradient-border"
             >
               <div className="absolute top-0 right-0 p-2">
                 <span className={`px-3 py-1 text-xs font-medium rounded-full bg-${project.gradient.split(' ')[1].split('-')[1]}-500/10 text-${project.gradient.split(' ')[1].split('-')[1]}-400`}>
@@ -132,7 +133,7 @@ const Projects = () => {
 
                 <div className="flex gap-3 pt-2">
                   <motion.a
-                    whileHover={{ scale: 1.03 }}
+                    whileHover={{ scale: 1.08, boxShadow: '0 0 16px 0 #a21caf88' }}
                     whileTap={{ scale: 0.98 }}
                     className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-cyan-400 rounded-lg hover:from-cyan-500/20 hover:to-purple-500/20 transition-all duration-300 text-sm font-medium"
                   >
@@ -140,7 +141,7 @@ const Projects = () => {
                     <span>View Code</span>
                   </motion.a>
                   <motion.a
-                    whileHover={{ scale: 1.03 }}
+                    whileHover={{ scale: 1.08, boxShadow: '0 0 16px 0 #06b6d488' }}
                     whileTap={{ scale: 0.98 }}
                     className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 border border-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/10 transition-all duration-300 text-sm font-medium"
                   >

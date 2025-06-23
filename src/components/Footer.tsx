@@ -1,9 +1,9 @@
-
 import { Github, Linkedin, Globe, Trophy, Mail } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="py-12 px-6 border-t border-cyan-500/20">
+    <footer className="py-12 px-6 border-t border-cyan-500/20 relative overflow-hidden">
+      <div className="absolute inset-0 -z-10 animate-gradient-move bg-gradient-to-br from-cyan-950 via-background to-purple-950 opacity-80" />
       <div className="max-w-6xl mx-auto">
         <div className="text-center">
           <div className="mb-6">
@@ -31,15 +31,6 @@ const Footer = () => {
             >
               <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span>GitHub</span>
-            </a>
-            <a
-              href="https://aniruddhadey.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 text-foreground/60 hover:text-cyan-400 transition-colors duration-300 cursor-hover group"
-            >
-              <Globe className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span>Website</span>
             </a>
             <a
               href="https://kaggle.com/adbeast"

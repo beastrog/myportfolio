@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail, Trophy } from 'lucide-react';
 import { Button } from './ui/button';
@@ -90,13 +90,28 @@ const Hero = () => {
   }, [currentText, isDeleting, typeWriter, typingSpeed]);
 
   const photoUrl = '/profile-photo.jpg'; // Make sure to add your photo to the public folder
+  const photoRef = useRef<HTMLDivElement>(null);
+
+  // Parallax effect for photo
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!photoRef.current) return;
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 20;
+      const y = (e.clientY / innerHeight - 0.5) * 20;
+      photoRef.current.style.transform = `translate(${x}px, ${y}px) scale(1)`;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <section 
       id="home" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background to-muted/20"
     >
-      <div className="absolute inset-0 -z-10 opacity-20">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 -z-10 animate-gradient-move">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
       </div>
 
@@ -116,7 +131,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.h1 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4 sm:mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4 sm:mb-6 animate-gradient-pulse"
               variants={item}
             >
               Hi, I'm Aniruddha Dey
@@ -174,6 +189,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            ref={photoRef}
           >
             <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-cyan-400/30 hover:border-cyan-400/60 transition-all duration-500 group">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />

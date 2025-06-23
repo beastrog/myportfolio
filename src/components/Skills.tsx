@@ -114,7 +114,8 @@ const Skills = () => {
             <motion.div
               key={index}
               variants={item}
-              className="group relative p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-foreground/5 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/5 overflow-hidden"
+              whileHover={{ scale: 1.04, boxShadow: '0 0 24px 0 #06b6d4aa', borderColor: '#06b6d4' }}
+              className="group relative p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-foreground/5 hover:border-cyan-400 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/10 overflow-hidden animate-gradient-border"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               <div className="flex items-center gap-3 mb-6">
@@ -142,7 +143,7 @@ const Skills = () => {
                       </div>
                       <div className="h-1.5 bg-foreground/5 rounded-full overflow-hidden">
                         <motion.div 
-                          className={`h-full rounded-full bg-gradient-to-r ${category.gradient} shadow-sm`}
+                          className={`h-full rounded-full bg-gradient-to-r ${category.gradient} shadow-sm animate-gradient-shimmer`}
                           initial={{ width: 0 }}
                           whileInView={{ width: `${level}%` }}
                           viewport={{ once: true }}

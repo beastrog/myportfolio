@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 
 const ParticleBackground = () => {
@@ -19,6 +18,13 @@ const ParticleBackground = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
     const particles: Array<{
       x: number;
       y: number;
@@ -33,8 +39,8 @@ const ParticleBackground = () => {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
         size: Math.random() * 2 + 1,
         opacity: Math.random() * 0.5 + 0.2,
       });
@@ -51,6 +57,16 @@ const ParticleBackground = () => {
         // Bounce off edges
         if (particle.x <= 0 || particle.x >= canvas.width) particle.vx *= -1;
         if (particle.y <= 0 || particle.y >= canvas.height) particle.vy *= -1;
+
+        // Repel from mouse
+        const dx = particle.x - mouse.x;
+        const dy = particle.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 80) {
+          const angle = Math.atan2(dy, dx);
+          particle.vx += Math.cos(angle) * 0.08;
+          particle.vy += Math.sin(angle) * 0.08;
+        }
 
         // Draw particle
         ctx.beginPath();
@@ -83,6 +99,7 @@ const ParticleBackground = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 

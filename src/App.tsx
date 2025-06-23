@@ -51,8 +51,8 @@ const AppContent = () => {
       <Toaster />
       <Sonner position="top-center" richColors />
       <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <LoadingSpinner size={48} />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-950 via-background to-purple-950 animate-gradient-move">
+          <LoadingSpinner size={64} />
         </div>
       }>
         <AnimatePresence mode="wait" initial={false}>

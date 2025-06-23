@@ -1,9 +1,9 @@
-
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Globe, Mail, Phone, MapPin, Send, User, MessageSquare } from 'lucide-react';
 import { api } from '@/lib/api';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 // Animation variants
 const fadeInUp = {
@@ -32,6 +32,7 @@ const Contact = () => {
     resume: null as File | null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const confettiRef = useRef<HTMLCanvasElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -47,6 +48,50 @@ const Contact = () => {
         resume: e.target.files[0]
       });
     }
+  };
+
+  const showConfetti = () => {
+    const canvas = confettiRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const confettiCount = 80;
+    const confetti = Array.from({ length: confettiCount }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height / 2,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * confettiCount,
+      color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+      tilt: Math.random() * 10 - 10,
+      tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+      tiltAngle: 0
+    }));
+    let angle = 0;
+    let tiltAngle = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      angle += 0.01;
+      tiltAngle += 0.1;
+      for (let i = 0; i < confettiCount; i++) {
+        const c = confetti[i];
+        c.tiltAngle += c.tiltAngleIncremental;
+        c.y += (Math.cos(angle + c.d) + 3 + c.r / 2) / 2;
+        c.x += Math.sin(angle);
+        c.tilt = Math.sin(c.tiltAngle - i / 3) * 15;
+        ctx.beginPath();
+        ctx.lineWidth = c.r;
+        ctx.strokeStyle = c.color;
+        ctx.moveTo(c.x + c.tilt + c.r / 3, c.y);
+        ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 5);
+        ctx.stroke();
+      }
+      if (confetti[0].y < canvas.height) {
+        requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+    draw();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,6 +133,7 @@ const Contact = () => {
         description: 'Your message has been sent successfully!',
         variant: 'default',
       });
+      showConfetti();
 
       // Reset form
       setFormData({
@@ -116,8 +162,27 @@ const Contact = () => {
     }
   };
 
+  // Copy email handler
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('deyaniruddha_goat@yahoo.com');
+      toast({
+        title: 'Email copied!',
+        description: 'deyaniruddha_goat@yahoo.com copied to clipboard.',
+        variant: 'default',
+      });
+    } catch (err) {
+      toast({
+        title: 'Copy failed',
+        description: 'Could not copy email. Please try manually.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   return (
     <section id="contact" className="py-16 px-4 sm:px-6 relative overflow-hidden">
+      <canvas ref={confettiRef} width={600} height={200} className="absolute left-1/2 -translate-x-1/2 top-0 z-20 pointer-events-none" />
       <div className="absolute inset-0 -z-10 opacity-30">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent w-full h-full"></div>
       </div>
@@ -242,18 +307,24 @@ const Contact = () => {
                     <span className="text-xs font-medium">GitHub</span>
                   </motion.a>
                   
-                  <motion.a
-                    whileHover={{ y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    href="https://aniruddhadey.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-foreground/10 hover:border-blue-500/30 transition-all duration-300 group flex-1 flex flex-col items-center"
-                    aria-label="Personal Website"
-                  >
-                    <Globe className="w-5 h-5 text-blue-400 mb-1.5 group-hover:scale-110 transition-transform" />
-                    <span className="text-xs font-medium">Website</span>
-                  </motion.a>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={handleCopyEmail}
+                          className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-foreground/10 hover:border-blue-500/30 transition-all duration-300 group flex-1 flex flex-col items-center focus:outline-none"
+                          aria-label="Copy Email"
+                        >
+                          <Mail className="w-5 h-5 text-blue-400 mb-1.5 group-hover:scale-110 transition-transform" />
+                          <span className="text-xs font-medium">deyaniruddha_goat@yahoo.com</span>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" align="center">
+                        Copy email to clipboard
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               </motion.div>
             </div>
@@ -294,7 +365,7 @@ const Contact = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className="w-full pl-10 pr-4 py-3 bg-background/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400/30 placeholder-foreground/30"
+                            className="w-full pl-10 pr-4 py-3 bg-background/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-400/40 transition-all duration-300 hover:border-cyan-400/30 placeholder-foreground/30 shadow-input-glow"
                             placeholder="Your name"
                           />
                         </div>
@@ -315,7 +386,7 @@ const Contact = () => {
                             value={formData.email}
                             onChange={handleInputChange}
                             required
-                            className="w-full pl-10 pr-4 py-3 bg-background/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-cyan-400/50 focus:ring-1 focus:ring-cyan-400/20 transition-all duration-300 hover:border-cyan-400/30 placeholder-foreground/30"
+                            className="w-full pl-10 pr-4 py-3 bg-background/50 border border-foreground/10 rounded-xl focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-400/40 transition-all duration-300 hover:border-cyan-400/30 placeholder-foreground/30 shadow-input-glow"
                             placeholder="your.email@example.com"
                           />
                         </div>
